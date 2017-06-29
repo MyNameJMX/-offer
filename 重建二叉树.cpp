@@ -1,11 +1,11 @@
-//Ç°Ğò±éÀú
+//
 struct BinaryTreeNode
 {
 	int m_nValue;
 	BinaryTreeNode* m_pLeft;
 	BinaryTreeNode* m_pRight;
 };
-//µİ¹é
+//é€’å½’ç‰ˆå‰åºéå†
 void PreOrder(BinaryTreeNode* root) 
 {
 	if (root == NULL)
@@ -14,7 +14,7 @@ void PreOrder(BinaryTreeNode* root)
 	printf("%d", root->m_nValue);
 	PreOrder((root->m_pRight);
 }
-//µü´ú std::stackÕ»
+//è¿­ä»£ç‰ˆå‰åºéå†
 void PreOrderIterative(BinaryTreeNode* root) 
 {
 	std::stack<BinaryTreeNode*> records;
