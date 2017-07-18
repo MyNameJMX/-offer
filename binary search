@@ -3,9 +3,10 @@ int binarySearch(int* srcArray, int length, int des)
 {
 	int low = 0;
 	int high = length - 1;
+	int middle = 0;
 	while (low <= high) 
 	{
-		int middle = low + (high - low) / 2;
+		middle = low + ((high - low) >> 1);
 		if (des == srcArray[middle]) 
 		{
 			return middle;
@@ -27,7 +28,7 @@ int BinSearch(int* array,int low,int high,int key)
 {  
     if (low<=high)  
     {  
-        int mid = (low+high)/2;  
+        int mid = (low+high)>>1;  
         if(key == array[mid])  
             return mid;  
         else if(key<array[mid])  
