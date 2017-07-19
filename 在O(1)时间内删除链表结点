@@ -1,0 +1,41 @@
+#include <cstdlib>
+struct ListNode 
+{
+	int m_nValue;
+	ListNode* m_pNext;
+};
+void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted) 
+{
+	if (!pListHead || !pToBeDeleted)
+		return;
+	//not tail node,besides delete in O(1) time(already know where to insert or delete)
+	if (pToBeDeleted->m_pNext != nullptr) 
+	{
+		ListNode* pNext = pToBeDeleted->m_pNext;
+		pToBeDeleted->m_nValue = pNext->m_nValue;
+		pToBeDeleted->m_pNext = pNext->m_pNext;
+		delete pNext;
+		pNext = nullptr;
+	}
+	else if (*pListHead == pToBeDeleted) //pToBeDeleted -> m_pNext == nullptr && *pListHead == pToBedeleted  
+	{
+		delete pToBeDeleted;
+		pToBeDeleted = nullptr;
+		*pListHead = nullptr;
+	}
+	else//Traversal list take O(N) time
+	{
+		ListNode* pNode = *pListHead;
+		while (pNode->m_pNext != pToBeDeleted) 
+		{
+			pNode = pNode->m_pNext;
+		}
+		pNode->m_pNext = nullptr;
+		delete pToBeDeleted;
+		pToBeDeleted = nullptr;
+	}
+}
+int main()
+{
+  return 0;
+}
