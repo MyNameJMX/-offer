@@ -1,4 +1,4 @@
-//ÀÁººÊ½Ğ´·¨
+//æ‡’æ±‰å¼å†™æ³•
 class Singleton {
 private:
 	Singleton() {}
@@ -7,7 +7,7 @@ public:
 	{
 		if (instance == NULL) 
 		{
-			lock(syncObj);//±£Ö¤Ïß³Ì°²È«
+			lock(syncObj);//ä¿è¯çº¿ç¨‹å®‰å…¨
 			if (instance == NULL)
 			{
 				instance_ = new Singleton();
@@ -21,12 +21,12 @@ private:
 };
 Singleton* Singleton::instance_ = 0;
 
-//¶öººÊ½Ğ´·¨  ÔÚÊµÏÖÎÄ¼şÖĞ³õÊ¼»¯ Ïß³Ì°²È«
+//é¥¿æ±‰å¼å†™æ³•  åœ¨å®ç°æ–‡ä»¶ä¸­åˆå§‹åŒ– çº¿ç¨‹å®‰å…¨
 class Singleton {
 private:
 	Singleton() {}
 public:
-	static constant Singleton& GetInstance()
+	static const Singleton& GetInstance()
 	{
 		return instance_;
 	}
