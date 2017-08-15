@@ -1,37 +1,61 @@
-//懒汉式写法
-class Singleton {
-private:
-	Singleton() {}
-public:
-	static Singleton& GetInstance() 
-	{
-		if (instance == NULL) 
-		{
-			lock(syncObj);//保证线程安全
-			if (instance == NULL)
-			{
-				instance_ = new Singleton();
-			}
-			return instance_;
-		}
-	}
-	
-private:
-	static Singleton* instance_;
-};
-Singleton* Singleton::instance_ = 0;
+//饿汉式写法之一
+//单例模式的优点：1 减小new的开销 2 使得外部不易修改实例，封装型提高
+//饿汉式缺点 很明显根据static成员变量的性质 实例初始化极早
 
-//饿汉式写法  在实现文件中初始化 线程安全
-class Singleton {
-private:
-	Singleton() {}
+#ifndef _SINGLETON_H_
+#define _SINGLETON_H_
+
+class Singleton{
 public:
-	static const Singleton& GetInstance()
-	{
-		return instance_;
-	}
+	static Singleton* getInstance();
 
 private:
-	static Singleton* instance_;
+	Singleton();
+	//把复制构造函数和=操作符也设为私有,防止被复制
+	Singleton(const Singleton&);
+	Singleton& operator=(const Singleton&);
+
+	static Singleton* instance;
 };
-const Singleton* Singleton::instance_ = new Singleton();
+
+#endif
+ 
+
+#include "Singleton.h"
+
+
+Singleton::Singleton(){
+
+}
+
+
+Singleton::Singleton(const Singleton&){
+
+}
+
+
+Singleton& Singleton::operator=(const Singleton&){
+
+}
+
+
+//在此处初始化
+Singleton* Singleton::instance = new Singleton();//初始化instance时候创建一个实例
+Singleton* Singleton::getInstance(){
+	return instance;
+}
+ 
+
+#include "Singleton.h"
+#include <stdio.h>
+
+
+int main(){
+	Singleton* singleton1 = Singleton::getInstance();
+	Singleton* singleton2 = Singleton::getInstance();
+
+	if (singleton1 == singleton2)
+		fprintf(stderr,"singleton1 = singleton2\n");
+
+	return 0;
+}
