@@ -13,6 +13,8 @@ void PrintListReversingly_Recursively(ListNode* pHead)
 //栈 迭代实现
 void PrintListReversingly_Iteratively(ListNode* pHead)
 {
+	if(pHead == nullptr)
+		return;
 	std::stack<ListNode*> nodes;
 	ListNode* pNode = pHead;
 	while(pHead != NULL)
