@@ -1,0 +1,54 @@
+#include <cstdlib>
+#include <exception>
+
+struct BinaryTreeNode {
+	int m_value;
+	BinaryTreeNode* m_leftChild;
+	BinaryTreeNode* m_rightChild;
+};
+
+BinaryTreeNode* Construct(int* preorder,int* inorder,int length) 
+{
+	if (preorder == nullptr || inorder == nullptr || length <= 0)
+		return nullptr;
+	return ConstructCore(preorder, preorder + length - 1, inorder, inorder + length - 1);
+}
+
+BinaryTreeNode* ConstructCore(int* startPreorder, int* endPreorder, int* startInorder, int* endInorder) 
+{
+	//在前序遍历中第一个元素是根节点的值
+	int rootValue = startPreorder[0];
+	BinaryTreeNode* root = new BinaryTreeNode();
+	root->m_value = rootValue;
+	root->m_leftChild = root->m_rightChild = nullptr;
+	
+	if (startPreorder == endPreorder) 
+	{
+		if (startInorder == endInorder && *startPreorder == *startInorder)//只有一个元素哦
+			return root;
+		else
+			throw std::exception("Invalid input");
+	}
+	//在中序遍历中找到根节点的值
+	int* rootInorder = startInorder;
+	while (rootInorder <= endInorder && *rootInorder != rootValue)
+		++rootInorder;
+	if (rootInorder == endInorder && *rootInorder != rootValue)//中序遍历序列中没有找到跟结点
+		throw std::exception("Invalid input");
+	int leftLength = rootInorder - startInorder;
+	int* leftPreorderEnd = startPreorder + leftLength;
+	if (leftLength > 0) 
+	{
+		root->m_leftChild = ConstructCore(startPreorder + 1, leftPreorderEnd, startInorder, rootInorder - 1);
+	}
+	if (leftLength < endPreorder - startPreorder) 
+	{
+		 root->m_rightChild = ConstructCore(leftPreorderEnd + 1, endPreorder, rootInorder + 1, endInorder);
+	}
+	return root;
+}
+
+int main() 
+{
+
+}
