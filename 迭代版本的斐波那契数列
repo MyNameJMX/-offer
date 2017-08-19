@@ -1,0 +1,23 @@
+#include <cstdlib>
+long long int Fibonacci(unsigned int n) 
+{
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return 1;
+	int numpre = 1;
+	int numprepre = 0;
+	int numpresent;
+	for (int i = 2; i <= n; i++) 
+	{
+		numpresent = numpre + numprepre;
+		numprepre = numpre;
+		numpre = numpresent;
+	}
+	return numpresent;
+}
+int main() 
+{
+	int result = Fibonacci(4);
+	return 0;
+}
