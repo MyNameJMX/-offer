@@ -1,0 +1,44 @@
+#include <cstdlib>
+int Numbersofone(int n) 
+{
+	int result = 0;
+	int assit = 1;
+	while (assit)//循环的次数等于整数二进制的位数 
+	{
+		if (assit & n)
+		{
+			result++;
+		}
+		assit = assit << 1;
+	}
+	return result;
+}
+int Numberof1(int n) 
+{
+	//会引起死循环的做法
+	int count = 0;
+	while (n)
+	{
+		if (n & 1)
+			count++;
+		n = n >> 1;
+	}
+	return count;
+}
+int NumberofOne(int n) 
+{
+	int count = 0;
+	while (n) 
+	{
+		++count;
+		n = (n - 1)&n;
+		//将一个整数减去1，再和原整数做与运算，会把该整数最右边一个1变成0
+	}
+	return count;
+}
+int main() 
+{
+	int result = Numbersofone(-33);
+  int result = Numberof1(-34);
+	int result = NumberofOne(-5);
+}
