@@ -1,0 +1,35 @@
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+void swap(int& a, int& b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void Permutation(int* test, int low, int high)
+{
+	if (low == high)
+	{
+		for (int i = 0; i <= high; i++)//Start from 0(we can change where to start)
+		{
+			cout << test[i];
+		}
+		cout << endl;
+	}
+	else
+	{
+		for (int i = low; i <= high; i++)
+		{
+			swap(test[low], test[i]);
+			Permutation(test, low + 1, high);
+			swap(test[low], test[i]);
+		}
+	}
+}
+int main() 
+{
+	int test[] = { 1,2,3 };
+	Permutation(test, 0, 2);
+	return 0;
+}
