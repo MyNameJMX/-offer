@@ -1,0 +1,51 @@
+#include <cstdlib>
+void Merge(int* a, int p, int q, int r) 
+{
+	int n1 = q - p + 1;//q算在前面
+	int n2 = r - q;
+	int* L = new int[n1 + 1];
+	int* R = new int[n2 + 1];
+	int i, j, k;
+	for (i = 0; i< n1; i++) 
+	{
+		L[i] = a[p + i];
+	}
+	for (j = 0; j < n2; j++) 
+	{
+		R[j] = a[q + j + 1];
+	}
+	L[n1] = 10000000;
+	R[n2] = 10000000;
+	for (i = 0, j = 0, k = p; k <= r; k++) 
+	{
+		if (L[i] <= R[j]) 
+		{
+			a[k] = L[i];
+			i++;
+		}
+		else 
+		{
+			a[k] = R[j];
+			j++;
+		}
+	}
+	delete []L;
+	delete []R;
+}
+
+void MergeSort1(int*a, int p, int r) 
+{
+	if ((r - p) >= 50)
+	{
+		int m = (p + r) >> 1;
+		MergeSort1(a, p, m);
+		MergeSort1(a, m, r);
+		Merge(a, p, q, r);
+	}
+	else 
+	{
+		InsertionSort(a + p, r - p + 1);
+		//当归并排序的元素比较少时使用插入排序
+		//效率更高！
+	}
+}
