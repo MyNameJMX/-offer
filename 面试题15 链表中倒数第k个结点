@@ -1,0 +1,38 @@
+#include <cstdlib>
+#include <exception>
+#include <iostream>
+struct ListNode {
+	int value;
+	ListNode* next;
+};
+ListNode* FindKthToTail(ListNode* head,int k) 
+{
+	if (head == nullptr)
+		return nullptr;
+	ListNode* assit = head;
+	int cnt = k;
+	while (cnt > 0) 
+	{
+		cnt--;
+		try 
+		{
+			assit = assit->next;
+		}
+		catch(...)
+		{
+			std::cout << "数组越界异常" << std::endl;
+			return nullptr;
+		}
+	}
+	while (assit->next) 
+	{
+		assit = assit->next;
+		head = head->next;
+	}
+	return head;
+}
+int main() 
+{
+	ListNode* head = new ListNode;
+	FindKthToTail(head, 2);
+}
