@@ -1,0 +1,30 @@
+#include <cstdlib>
+void RecordOddEven(int* pData, unsigned int length)
+{
+	if ((pData == nullptr) || (length == 0))
+		return;
+	int* pTail = pData + length - 1;
+	int* pBegin = pData;
+	while (pTail >= pBegin) 
+	{
+		while ((pTail >= pBegin) && (*pBegin & 0x00000001) == 1)//如果pBegin是奇数
+		{
+			pBegin++;
+		}
+		while ((pTail >= pBegin) && (*pTail & 0x0000001) == 0) //如果pTail是偶数
+		{
+			pTail--;
+		}
+		if (pTail >= pBegin) 
+		{
+			int temp = *pBegin;
+			*pBegin = *pTail;
+			*pTail = temp;
+		}
+	}
+}
+int main() 
+{
+	int test[5] = { 1,2,3,4,5 };
+	RecordOddEven(test, 5);
+}
