@@ -1,0 +1,27 @@
+#include <cstdlib>
+struct ListNode {
+	int m_nKey;
+	ListNode* m_pNext;
+};
+
+ListNode* ReverseList(ListNode* phead) 
+{
+	ListNode* pReverseHead = nullptr;
+	ListNode* pNode = phead;
+	ListNode* pPrev = nullptr;
+	while (pNode != nullptr) 
+	{
+		ListNode* pNext = pNode->m_pNext;
+		if (pNext == nullptr)
+			pReverseHead = pNode;
+		pNode->m_pNext = pPrev;
+		pPrev = pNode;
+		pNode = pNext;
+	}
+	return pReverseHead;
+}
+int main() 
+{
+	ListNode* head = new ListNode();
+	ReverseList(head);
+}
