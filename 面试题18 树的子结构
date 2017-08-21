@@ -1,0 +1,23 @@
+bool HasSubTree(BinaryTreeNode* A,BinaryTreeNode* B) 
+{
+	bool result = false;
+	if ((B == nullptr) || (A == nullptr))
+		return false;
+	if (B->m_nValue == A->m_nValue)
+		result = DoesHasSubTree(A, B);
+	if (!result)
+		result = HasSubTree(A->m_pLeft, B);
+	if (!result)
+		result = HasSubTree(A->m_pRight, B);
+	return result;
+}
+bool DoesHasSubTree(BinaryTreeNode* root1,BinaryTreeNode* root2) 
+{
+	if (root2 == nullptr)
+		return true;
+	if (root1 == nullptr)
+		return false;
+	if (root1->m_nValue != root2->m_nValue)
+		return false;
+	return DoesHasSubTree(root1->m_pLeft, root2->m_pLeft) && DoesHasSubTree(root1->m_pRight, root2->m_pRight);
+}
