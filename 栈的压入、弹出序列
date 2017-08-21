@@ -1,0 +1,30 @@
+#include <stack>
+#include <cstdlib>
+using namespace std;
+bool IsPopOrder(const int* pPush, const int* pPop, int nLength) 
+{
+	bool result = false;
+	if ((pPush == nullptr) || (pPop == nullptr) || (nLength == 0))
+		return false;
+	const int* pNextPush = pPush;
+	const int* pNextPop = pPop;
+	stack<int> assit;
+	while (pNextPop - pPop < nLength) 
+	{
+		while (assit.empty() || assit.top() != *pNextPop) 
+		{
+			if (pNextPush - pPush == nLength)
+				break; 
+			assit.push(*pNextPush);
+			pNextPush++;
+		}
+
+		if (assit.top() != *pNextPop)
+			break;
+		assit.pop();
+		pNextPop++;
+	}
+	if (assit.empty() && pNextPop - pPop == nLength)
+		result = true;
+	return result;
+}
