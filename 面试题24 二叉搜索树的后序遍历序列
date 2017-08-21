@@ -1,0 +1,33 @@
+#include <cstdlib>
+bool VertifySquenceOfBST(int sequence[], int length) 
+{
+	if (length == 0)
+		return false;
+	int root = sequence[length - 1];
+	int* leftFirst = &sequence[0];
+	int index = 0;
+	while (index < length - 1) 
+	{
+		if (sequence[index] > root)
+			break;
+		index++;
+	}
+	int* rightFirst = &sequence[index];
+	for (int i = index; i < length - 1; i++) 
+	{
+		if (sequence[i] < root)
+			return false;
+	}
+	bool left = true;
+	bool right = true;
+	if (index > 0)
+		left = VertifySquenceOfBST(leftFirst, index);
+	if (index < length - 1)
+		right = VertifySquenceOfBST(rightFirst, length - index - 1);
+	return (left && right);
+}
+int main() 
+{
+	int test[7] = { 5,7,6,9,11,10,8 };
+	bool result = VertifySquenceOfBST(test, 7);
+}
