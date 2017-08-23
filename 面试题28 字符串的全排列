@@ -1,0 +1,41 @@
+class Solution {
+public:
+	vector<string> Permutation(string str) {
+		vector<string> result;
+		int i = 0;
+		if (str.empty())
+		{
+			return result;
+		}
+		permution(str, i, result);
+		sort(result.begin(), result.end());//排序后删除相同元素
+		for (auto itor = result.begin(); (itor + 1) != result.end();)
+		{
+			if (*itor == *(itor + 1))
+			{
+				itor = result.erase(itor);
+			}
+			else
+				itor++;
+		}
+		return result;
+	}
+	void permution(string str, int i, vector<string>& result)
+	{
+		if (i == str.length() - 1)
+		{
+			result.push_back(str);
+		}
+		for (int j = i; j < str.length(); j++)
+		{
+			char temp = str[i];
+			str[i] = str[j];
+			str[j] = temp;
+			permution(str, i + 1, result);
+			temp = str[i];
+			str[i] = str[j];
+			str[j] = temp;
+		}
+	}
+};
+
