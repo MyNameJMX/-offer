@@ -1,0 +1,41 @@
+#include <cstdlib>
+#include <algorithm>
+int Min(int n1, int n2, int n3) 
+{
+	if ((n1 < n2) && (n1 < n3))
+		return n1;
+	if ((n2 < n1) && (n2 < n3))
+		return n2;
+	if ((n3 < n1) && (n3 < n2))
+		return n3;
+}
+int GetUglyNumber_Solution(int index) 
+{
+	if (index <= 0)
+		return 0;
+	int* pUglyNumbers = new int[index];
+	pUglyNumbers[0] = 1;
+	int nextUglyIndex = 1;
+	
+	int* pMultiply2 = pUglyNumbers;
+	int* pMultiply3 = pUglyNumbers;
+	int* pMultiply5 = pUglyNumbers;
+
+	while (nextUglyIndex < index) 
+	{
+		int min = Min(*pMultiply2 * 2, *pMultiply3 * 3, *pMultiply5 * 5);
+		pUglyNumbers[nextUglyIndex] = min;
+
+		while (*pMultiply2 * 2 <= pUglyNumbers[nextUglyIndex])
+			++pMultiply2;
+		while (*pMultiply3 * 3 <= pUglyNumbers[nextUglyIndex])
+			++pMultiply3;
+		while (*pMultiply5 * 5 <= pUglyNumbers[nextUglyIndex])
+			++pMultiply5;
+		++nextUglyIndex;
+	}
+	int ugly = pUglyNumbers[nextUglyIndex - 1];
+	delete[] pUglyNumbers;
+	return ugly;
+}
+
