@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdlib>
+void swap(int i, int j) 
+{
+	int temp = i;
+	i = j;
+	j = temp;
+}
+int partition(int* arr, int length,int start,int end) 
+{
+	int j = start;
+	int i = j - 1;
+	for (; j < end - 1; j++) 
+	{
+		if (arr[j] <= arr[end - 1]) 
+		{
+			i++;
+			if (i != j)
+				swap(arr[i], arr[j]);
+		}
+	}
+	swap(arr[i + 1], arr[length - 1]);
+	return (i + 1);
+}
+int MoreThanHalfNum(int* number,int length) 
+{
+	int middle = length >> 1;
+	int start = 0;
+	int end = length - 1;
+	int index = partition(number, length, start, end);
+	while (index != middle) 
+	{
+		if (index > middle) 
+		{
+			end = index - 1;
+			index = partition(number, length, start, end);
+		}
+		else 
+		{
+			start = index + 1;
+			index = partition(number, length, start, end);
+		}
+	}
+	return number[middle];
+}
