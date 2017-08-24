@@ -1,0 +1,22 @@
+#include <set>
+#include <vector>
+#include <cstdlib>
+using namespace std;
+//利用红黑树代替最大堆 因为堆没有stl已有的实现
+void GetLeastNumbers(const vector<int>& data, multiset<int> leastNumbers,int k) 
+{
+	for (auto itor = data.begin(); itor != data.end(); itor++) 
+	{
+		if (leastNumbers.size() < k)
+			leastNumbers.insert(*itor);
+		else 
+		{
+			auto temp = leastNumbers.begin();
+			if (*temp > *itor) 
+			{
+				leastNumbers.erase(temp);
+				leastNumbers.insert(*itor);
+			}
+		}
+	}
+}
